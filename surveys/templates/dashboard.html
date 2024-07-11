@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImpactSignals</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        header {
+            background-color: #E7B319;
+            color: #000;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header .logout {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+        .sidebar {
+            background-color: #5DADE2;
+            width: 200px;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+        }
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .survey-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .survey-item {
+            background-color: #f0f0f0;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>ImpactSignals</div>
+        <div>
+            &lt;Current_user_email id&gt;
+            <a href="#" class="logout">Logout</a>
+        </div>
+    </header>
+    <div class="sidebar"></div>
+    <div class="content">
+        <h2>Select a Survey</h2>
+        <div class="survey-container">
+            <div class="survey-item">From Scratch</div>
+            <div class="survey-item">Pulse Survey</div>
+            <div class="survey-item">OnBoarding Survey</div>
+            <div class="survey-item">ABC - Template</div>
+            <div class="survey-item">XYZ - Template</div>
+        </div>
+    </div>
+</body>
+</html>
