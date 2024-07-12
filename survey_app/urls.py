@@ -18,15 +18,11 @@ Including another URLconf
 
 # survey_app/urls.py
 from django.contrib import admin
-from django.urls import path
-from surveys import views as accounts_views
+from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('signup/', accounts_views.signup_view, name='signup'),
-    path('login/', accounts_views.login_view, name='login'),
-    path('dashboard/', accounts_views.dashboard_view, name='dashboard'),
-   
+   path('',include('surveys.urls'))
 ]
 
 

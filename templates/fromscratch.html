@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImpactSignals</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <header class="bg-warning text-dark d-flex justify-content-between align-items-center p-3">
+        <h2 class="m-0">ImpactSignals</h2>
+        <button class="font-weight-bold text-dark btn btn-outline-dark" onclick="location.href='{% url 'signout' %}'">Logout</button>
+    </header>
+
+<div class="container-fluid flex-grow-1">
+    <div class="row mt-4">
+        <div class="col-1 d-flex flex-column" style="background-color: #5DADE2; min-height: calc(100vh - 56px);"></div>
+        <div class="col-11">
+            <ul class="nav nav-pills nav-fill">
+                
+                <li class="nav-item">
+                    <a class="nav-link" style="background-color: #FFC107;" href="#">Design the Survey</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Preview the Survey</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Collect</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Analyse Results</a>
+                </li>
+            </ul>
+            <div class="card mt-4">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="surveyName">Survey - Name</label>
+                            <textarea class="form-control" id="surveyName" rows="1"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="surveyDescription">Survey Description</label>
+                            <textarea class="form-control" id="surveyDescription" rows="3"></textarea>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-warning font-weight-bold">Next >></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap

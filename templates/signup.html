@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .full-height {
+            height: 100vh;
+        }
+        .bg-light-gray {
+            background-color: #e0e0e0;
+        }
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid full-height">
+        <div class="row full-height">
+            <div class="col-md-6 bg-light-gray center-content">
+                <img src=" " alt="Impact Signals">
+            </div>
+            <div class="col-md-6 center-content">
+                <div class="w-75">
+                    <h2 class="mb-4">Signup Now</h2>
+                    <!-- Display messages -->
+                    {% if messages %}
+                        <div class="alert alert-danger">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <form method="POST" action="{% url 'signup' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="email">Email id</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password1">Password</label>
+                            <input type="password" class="form-control" id="password1" name="password1">
+                        </div>
+                        <div class="form-group">
+                            <label for="password2">Re-Enter Your Password</label>
+                            <input type="password" class="form-control" id="password2" name="password2">
+                        </div>
+                        <button type="submit" class="btn btn-warning btn-block">Signup Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
