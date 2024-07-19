@@ -3,31 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Page</title>
+    <title>Login Page</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .full-height {
-            height: 100vh;
-        }
-        .bg-light-gray {
-            background-color: #e0e0e0;
-        }
-        .center-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    </style>
 </head>
 <body>
-    <div class="container-fluid full-height">
-        <div class="row full-height">
-            <div class="col-md-6 bg-light-gray center-content">
-                <img src=" " alt="Impact Signals">
+    <div class="container-fluid vh-100 d-flex flex-column">
+        <div class="row flex-grow-1">
+            <div class="col-md-6 bg-light d-flex justify-content-center align-items-center">
+                <img src=" " alt="Impact Signals" class="img-fluid">
             </div>
-            <div class="col-md-6 center-content">
+            <div class="col-md-6 d-flex justify-content-center align-items-center">
                 <div class="w-75">
-                    <h2 class="mb-4">Signup Now</h2>
+                    <h2 class="mb-4">Login Now</h2>
                     <!-- Display messages -->
                     {% if messages %}
                         <div class="alert alert-danger">
@@ -36,21 +23,17 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                    <form method="POST" action="{% url 'signup' %}">
+                    <form method="POST" action="{% url 'login' %}">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="email">Email id</label>
                             <input type="email" class="form-control" id="email" name="email">
                         </div>
                         <div class="form-group">
-                            <label for="password1">Password</label>
-                            <input type="password" class="form-control" id="password1" name="password1">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password">
                         </div>
-                        <div class="form-group">
-                            <label for="password2">Re-Enter Your Password</label>
-                            <input type="password" class="form-control" id="password2" name="password2">
-                        </div>
-                        <button type="submit" class="btn btn-warning btn-block">Signup Now</button>
+                        <button type="submit" class="btn btn-warning btn-block">Login Now</button>
                     </form>
                 </div>
             </div>
