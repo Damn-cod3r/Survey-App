@@ -10,7 +10,7 @@
 
 <header class="bg-warning text-dark d-flex justify-content-between align-items-center p-3">
     <h2 class="m-0">ImpactSignals</h2>
-    <button class="font-weight-bold text-dark btn btn-outline-dark" onclick="location.href='{% url 'signout' %}'">Logout</button>
+    <button class="font-weight-bold text-dark btn btn-outline-dark" onclick="location.href='{% url 'surveys:signout' %}'">Logout</button>
 </header>
 
 <div class="container-fluid flex-grow-1">
@@ -126,7 +126,7 @@
             }
 
             $.ajax({
-                url: '{% url "fromscratch" %}',
+                url: '{% url "surveys:fromscratch" %}',
                 type: 'POST',
                 data: {
                     'surveyName': surveyName,
@@ -134,26 +134,41 @@
                     'csrfmiddlewaretoken': '{{ csrf_token }}'
                 },
                 success: function(response) {
-                    $('#displaySurveyName').text(response.survey_name);
-                    $('#displaySurveyDescription').text(response.survey_description);
-                    $('#surveyId').val(response.survey_id);  // Set the survey ID for later use
-                    $('#survey-details').show();
-                    $('#design-survey').hide();
+                    
+                    window.location.href = '/survey/survey_detail/' + response.survey_id + '/';
                 }
             });
         });
-        
+
+        {% if survey %}
+            $('#displaySurveyName').text('{{ survey.name }}');
+            $('#displaySurveyDescription').text('{{ survey.description }}');
+            $('#surveyId').val('{{ survey.id }}');
+            $('#survey-details').show();
+            $('#design-survey').hide();
+
+            {% for question in survey.question_set.all %}
+                var questionHtml = '<div class="card mt-2"><div class="card-body">';
+                questionHtml += '<p><strong>Question:</strong> {{ question.question_text }}</p>';
+                questionHtml += '<p><strong>Options:</strong></p>';
+                questionHtml += '<select class="form-control">';
+                {% for option in question.options.all %}
+                    questionHtml += '<option>{{ option }}</option>';
+                {% endfor %}
+                questionHtml += '</select>';
+                questionHtml += '</div></div>';
+
+                $('#question-list').append(questionHtml);
+            {% endfor %}
+        {% endif %}
+
         $('#addQuestionBtn').on('click', function() {
             $('#question-types').show();
         });
 
         $('#dropdownButton').on('click', function() {
-            
             $('#question-types').hide();
             $('#dropdown-question').show();
-            $('#dropdown-form').find('input[type=text]').val('');
-
-            
         });
 
         $('#dropdown-form').on('submit', function(event) {
@@ -168,10 +183,9 @@
             }
 
             $.ajax({
-                url: '{% url "fromscratch" %}',
+                url: '/survey/survey_detail/' + surveyId + '/',
                 type: 'POST',
                 data: {
-                    'survey_id': surveyId,
                     'addQuestionText': questionText,
                     'addOptions': options,
                     'csrfmiddlewaretoken': '{{ csrf_token }}'
@@ -191,11 +205,13 @@
                 
                     $('#question-list').append(questionHtml);
                     $('#dropdown-question').hide();
+                    $('#dropdown-form')[0].reset(); 
                 }
             });
         });
     });
 </script>
+
 
 </body>
 </html>

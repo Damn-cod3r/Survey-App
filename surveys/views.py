@@ -24,12 +24,12 @@ def signup(request):
     # Check if email already exists
     if User.objects.filter(email=email).exists():
       messages.error(request, "Email Already Registered!!")
-      return redirect('signup')
+      return redirect('surveys:signup')
 
     # Check if passwords match
     if pass1 != pass2:
       messages.error(request, "Passwords do not match!")
-      return redirect('signup')
+      return redirect('surveys:signup')
 
     # Create user object
     myuser = User.objects.create_user(email, email, pass1)
@@ -38,7 +38,7 @@ def signup(request):
     myuser.save()
 
     messages.success(request, "Your Account has been created successfully!! Please log in.")
-    return redirect('home')
+    return redirect('surveys:home')
 
   return render(request, "surveys/signup.html")
 
@@ -55,10 +55,10 @@ def signin(request):
 
     if user is not None:
       login(request, user)
-      return redirect('dashboard')
+      return redirect('surveys:dashboard')
     else:
       messages.error(request, "Invalid credentials!")
-      return redirect('login')
+      return redirect('surveys:login')
 
   return render(request, "surveys/login.html")
 
@@ -69,7 +69,7 @@ def signout(request):
   """Logs out the user"""
   logout(request)
   messages.success(request, "Logged Out Successfully!!")
-  return redirect('home')
+  return redirect('surveys:home')
 
 # Logs out the user, sends success message, and redirects to home page
 
@@ -80,35 +80,36 @@ def dashboard(request):
 
 def fromscratch(request):
     if request.method == 'POST':
-        # Handle survey creation
         if 'surveyName' in request.POST and 'surveyDescription' in request.POST:
             survey_name = request.POST['surveyName']
             survey_description = request.POST['surveyDescription']
             survey = Survey(name=survey_name, description=survey_description)
             survey.save()
+           # print(f"Survey ID (fromscratch): {survey.id}")  # Debugging line
+            return JsonResponse({'survey_id': survey.id, 'survey_name': survey.name, 'survey_description': survey.description})
+          
+            
+    return render(request, "surveys/fromscratch.html")
 
-            return JsonResponse({
-                'survey_name': survey.name,
-                'survey_description': survey.description,
-                'survey_id': survey.id  # Return the survey ID
-            })
-
-        # Handle adding questions dynamically
+def survey_detail(request, survey_id):
+    
+    survey = Survey.objects.get(id=survey_id)
+    if request.method == 'POST':
         if 'addQuestionText' in request.POST and 'addOptions' in request.POST:
-            survey_id = request.POST.get('survey_id')
-            survey = Survey.objects.get(id=survey_id)
-
             question_text = request.POST['addQuestionText']
             options = request.POST['addOptions']
-
+            
             if question_text and options:
                 option_list = [option.strip() for option in options.split(',') if option.strip()]
-                question = Question(survey=survey, question_text=question_text, options=option_list)
+                options_str = ','.join(option_list)  # Convert list to a comma-separated string
+                
+                question = Question(survey=survey, question_text=question_text, options=options_str)
                 question.save()
 
                 return JsonResponse({
                     'question_text': question.question_text,
-                    'options': option_list  # Return the list of options
+                    'options': option_list
                 })
 
-    return render(request, "surveys/fromscratch.html")
+    context = {'survey': survey}
+    return render(request, "surveys/fromscratch.html", context)
