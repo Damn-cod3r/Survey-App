@@ -93,7 +93,10 @@ def fromscratch(request):
 
 def survey_detail(request, survey_id):
     
-    survey = Survey.objects.get(id=survey_id)
+    survey_obj = Survey.objects.get(id=survey_id)
+    question_obj = Question.objects.filter(survey = survey_obj)
+    print(question_obj)
+
     if request.method == 'POST':
         if 'addQuestionText' in request.POST and 'addOptions' in request.POST:
             question_text = request.POST['addQuestionText']
@@ -103,13 +106,13 @@ def survey_detail(request, survey_id):
                 option_list = [option.strip() for option in options.split(',') if option.strip()]
                 options_str = ','.join(option_list)  # Convert list to a comma-separated string
                 
-                question = Question(survey=survey, question_text=question_text, options=options_str)
+                question = Question(survey=survey_obj, question_text=question_text, options=options_str)
                 question.save()
-
+                
                 return JsonResponse({
                     'question_text': question.question_text,
                     'options': option_list
                 })
 
-    context = {'survey': survey}
+    context = {'survey': survey_obj}
     return render(request, "surveys/fromscratch.html", context)

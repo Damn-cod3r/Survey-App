@@ -11,7 +11,7 @@ class Survey(models.Model):
 class Question(models.Model):
     survey = models.ForeignKey(Survey, related_name='questions', on_delete=models.CASCADE)
     question_text = models.CharField(max_length=255)
-    options = models.CharField(max_length=255)  # Consider using a better structure for options
+    options = models.CharField(max_length=255)  
 
     def __str__(self):
         return self.question_text
