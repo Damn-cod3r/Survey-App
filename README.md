@@ -133,4 +133,4 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 ---
 
-Made with ❤️ by [Chidambaram AKA Damn-cod3r]().
+Made with ❤️ by [Chidambaram AKA Damn-cod3r](https://github.com/Damn-cod3r).
